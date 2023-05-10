@@ -11,6 +11,10 @@ df = pandas.read_csv('hotels.csv', dtype={'id': str})
 class Hotel:
     def __init__(self, hotel_id):
         self.hotel_id = hotel_id
+        # we are using the hotel_id to extract the hotel name from the csv file and not need to pass it during the
+        # instance creation
+
+        self.name = df.loc[df['id'] == self.hotel_id, 'name'].squeeze()
 
     def book(self):
         """Book a hotel by changing its availability to no"""
@@ -33,10 +37,19 @@ class Hotel:
 
 class Reservation:
     def __init__(self, customer_name, hotel_object):
-        pass
+        self.customer_name = customer_name
+        # Passing the name of the Hotel class as we create a hotel instance and pass it
+        self.hotel = hotel_object
 
     def generate(self):
-        pass
+        # By passing the hotel object to the Reservation instance, we can access the Hotel name property
+        content = f"""
+        Thank you for your reservation!
+        Here are your booking data:
+        Guest name: {self.customer_name}
+        Hotel name: {self.hotel.name}
+        """
+        return content
 
 
 # The logic
@@ -47,7 +60,7 @@ hotel = Hotel(hotel_id)
 if hotel.available():
     hotel.book()
     name = input('Enter your name: ')
-    reservation_ticket = Reservation(name, hotel)
+    reservation_ticket = Reservation(customer_name=name, hotel_object=hotel)
     print(reservation_ticket.generate())
 else:
     print('Hotel is not free')
