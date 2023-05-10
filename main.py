@@ -19,7 +19,7 @@ class Hotel:
     def book(self):
         """Book a hotel by changing its availability to no"""
         df.loc[df['id'] == self.hotel_id, 'available'] = 'no'
-        # Index=False so python will not add another index column
+        # Write the new value in the csv file, Index=False so python will not add another index column
         df.to_csv('hotels.csv', index=False)
 
     def view(self):
