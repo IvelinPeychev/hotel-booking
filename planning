@@ -1,0 +1,13 @@
+User can see a list of hotels
+User can book a hotel
+User can get a reservation ticket
+
+Classes
+User
+Hotel
+ReservationTicket
+
+
+to define which method should be in which class check the methods with WHAT?
+ex
+book what? Bool a hotel => book_hotel() is in Hotel class
