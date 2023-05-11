@@ -58,6 +58,23 @@ class Reservation:
         return content
 
 
+class SpaHotel(Hotel):
+    def book_spa_hotel(self):
+        pass
+
+
+class SpaReservation(Reservation):
+    def generate(self):
+        # By passing the hotel object to the Reservation instance, we can access the Hotel name property
+        content = f"""
+        Thank you for your reservation!
+        Here are your SPA booking data:
+        Guest name: {self.customer_name}
+        Hotel name: {self.hotel.name}
+        """
+        return content
+
+
 class CreditCard:
     def __init__(self,number):
         self.number = number
@@ -80,7 +97,7 @@ class SecureCreditCard(CreditCard):
 # The executable logic
 print(df)
 hotel_id = input('Enter the id of the hotel: ')
-hotel = Hotel(hotel_id)
+hotel = SpaHotel(hotel_id)
 
 if hotel.available():
     # We are not using input() to get the data below for simplicity
@@ -91,6 +108,10 @@ if hotel.available():
             name = input('Enter your name: ')
             reservation_ticket = Reservation(customer_name=name, hotel_object=hotel)
             print(reservation_ticket.generate())
+            ask_for_spa = input('Would you like a SPA package? ')
+            if ask_for_spa == 'yes':
+                spa_ticket = SpaReservation(customer_name=name, hotel_object=hotel)
+                print(spa_ticket.generate())
         else:
             print('Credit card authentication failed')
     else:
